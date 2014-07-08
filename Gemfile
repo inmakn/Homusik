@@ -40,8 +40,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'pry-rails'
 
-group: :development, :test, do
+group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec-collection_matchers'
-  gem 'should-matchers', require: false
+  gem 'shoulda-matchers', require: false
 end

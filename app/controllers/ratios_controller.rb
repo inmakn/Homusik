@@ -1,0 +1,3 @@
+class RatiosController < ApplicationController
+
+end
