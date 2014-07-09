@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HomusikApp</title>
+  <title>homusik</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <h4><%= link_to "homusik home", root_path %></h4>
+
+  <% if current_user %>
+  <h2>welcome to homusik, <%= current_user.username %> </h2>
+  <p><%= link_to "my homusik", user_path(current_user) %> | <%= link_to "log out", logout_path %></p>
+  <hr>
+
+  <% else %>
+  <p><%= link_to "sign up", new_user_path %> | <%= link_to "log in", login_path %></p>
+  <hr>
+  <% end %>
 
 <%= yield %>
 

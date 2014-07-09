@@ -1,0 +1,22 @@
+<h3> find how much your friends are listening to where: </h3>
+
+<% @ratio.errors.full_messages.each do |msg| %>
+<li> <%= msg %> </li>
+<% end %>
+
+
+<%= form_for @ratio do |f| %>
+
+<%= f.label :lastfm_username_entry %>
+<%= f.text_field :lastfm_username_entry %>
+
+<%= f.label :city_entry %>
+<%= f.text_field :city_entry %>
+
+<%= f.label :country_entry %>
+<%= f.text_field :country_entry %>
+
+<%= f.submit "calculate sync ratio"%>
+<% end %>
+
+<%= link_to("back to all ratios", ratios_path) %>

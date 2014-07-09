@@ -1,0 +1,13 @@
+<html>
+  <body>
+    <h2>Welcome, <%= @user.username.capitalize %> <h2>
+      <img src= '<%= @user.photo_url %>' >
+      <p>Listening in: <%= @user.city.capitalize %>, <%= @user.country.capitalize %> </p>
+      <p>Listening as: <%= @user.lastfm_username %> </p>
+
+    <p><%= link_to 'Edit me!', edit_user_path(@user)  %></p>
+
+    <p><%= button_to "Delete me?", user_path(@user), method: :delete %></p>
+
+  </body>
+</html>

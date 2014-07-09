@@ -1,0 +1,10 @@
+<h3> all homusik ratio matches: </h3>
+
+<ul>
+<% @ratios.each do |ratio| %>
+ <li><p><%= "#{ratio.ratio_output}% sync ratio between last.fm user #{ratio.lastfm_username_entry} and #{ratio.city_entry}, #{ratio.country_entry}." %></p>
+   <p><%= "searched by: #{ratio.user.username.capitalize}" %></p>
+   <p><%= button_to "delete", ratio_path(ratio), method: :delete %></p>
+ </li>
+<% end %>
+</ul>
