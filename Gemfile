@@ -39,9 +39,16 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'debugger', group: [:development, :test]
 
 gem 'pry-rails'
+gem 'awesome_print'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec-collection_matchers'
   gem 'shoulda-matchers', require: false
 end
+
+group :production do
+  gem 'rails_12factor'
+end
+
+ruby "2.1.2"

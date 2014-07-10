@@ -22,4 +22,8 @@ class SessionsController < ApplicationController
     erb :error
   end
 
+  def wrong_user_page
+    erb :wrong_user
+  end
+
 end

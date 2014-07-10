@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
 
   has_many :ratios, dependent: :destroy
 
-  validates :username, :lastfm_username, :photo_url, :city, :country, presence: true
-  validates :username, :lastfm_username, uniqueness: true
+  validates_presence_of :username, :lastfm_username, :photo_url, :city, :country
+  validates_uniqueness_of :username, :lastfm_username
 end

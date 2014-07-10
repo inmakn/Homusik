@@ -1,13 +1,13 @@
 <html>
   <body>
-    <h2>Welcome, <%= @user.username.capitalize %> <h2>
+    <h2><%= @user.username %>'s page <h2>
       <img src= '<%= @user.photo_url %>' >
-      <p>Listening in: <%= @user.city.capitalize %>, <%= @user.country.capitalize %> </p>
-      <p>Listening as: <%= @user.lastfm_username %> </p>
+      <p>listening in: <%= @user.city.capitalize %>, <%= @user.country.capitalize %> </p>
+      <p>listening as: <%= @user.lastfm_username %> </p>
 
-    <p><%= link_to 'Edit me!', edit_user_path(@user)  %></p>
+    <p><%= link_to 'edit me!', edit_user_path(@user)  %></p>
 
-    <p><%= button_to "Delete me?", user_path(@user), method: :delete %></p>
+    <p><%= button_to "delete me?", user_path(@user), method: :delete %></p>
 
   </body>
 </html>

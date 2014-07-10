@@ -1,9 +1,11 @@
 <h3> all homusik ratio matches: </h3>
 
+<h2><%= link_to("calculate a homusik sync ratio", new_ratio_path) %></h2>
+
 <ul>
 <% @ratios.each do |ratio| %>
- <li><p><%= "#{ratio.ratio_output}% sync ratio between last.fm user #{ratio.lastfm_username_entry} and #{ratio.city_entry}, #{ratio.country_entry}." %></p>
-   <p><%= "searched by: #{ratio.user.username.capitalize}" %></p>
+ <li><p><%= link_to("last.fm user #{ratio.lastfm_username_entry} & #{ratio.city_entry}, #{ratio.country_entry} => #{ratio.ratio_output}% sync ratio", ratio_path(ratio)) %></p>
+   <p><%= "searched by: #{ratio.user.username unless ratio.user.blank?}" %></p>
    <p><%= button_to "delete", ratio_path(ratio), method: :delete %></p>
  </li>
 <% end %>
