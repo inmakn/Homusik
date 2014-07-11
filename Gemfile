@@ -41,6 +41,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pry-rails'
 gem 'awesome_print'
 
+gem 'httparty'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec-collection_matchers'

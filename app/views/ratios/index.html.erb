@@ -4,7 +4,7 @@
 
 <ul>
 <% @ratios.each do |ratio| %>
- <li><p><%= link_to("last.fm user #{ratio.lastfm_username_entry} & #{ratio.city_entry}, #{ratio.country_entry} => #{ratio.ratio_output}% sync ratio", ratio_path(ratio)) %></p>
+ <li><p><%= link_to(ratio.info, ratio_path(ratio)) %></p>
    <p><%= "searched by: #{ratio.user.username unless ratio.user.blank?}" %></p>
    <p><%= button_to "delete", ratio_path(ratio), method: :delete %></p>
  </li>

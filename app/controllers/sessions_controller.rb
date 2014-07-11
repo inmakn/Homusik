@@ -5,9 +5,13 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(username: params[:username])
-    if user.authenticate(params[:password])
-      session[:current_user] = user.id
-      redirect_to user_path(current_user)
+    if user
+      if user.authenticate(params[:password])
+        session[:current_user] = user.id
+        redirect_to user_path(current_user)
+      else
+        redirect_to login_path
+      end
     else
       redirect_to login_path
     end

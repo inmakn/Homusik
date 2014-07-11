@@ -1,4 +1,7 @@
-<p><%= "#{@ratio.ratio_output}% sync ratio between last.fm user #{@ratio.lastfm_username_entry} and #{@ratio.city_entry}, #{@ratio.country_entry} at #{@ratio.created_at}." %></p>
+<p><%= "#{@ratio.ratio_output}% sync ratio between last.fm user #{@ratio.lastfm_username} and #{@ratio.city}, #{@ratio.country} at #{@ratio.created_at}." %></p>
 <p><%= "searched by: #{@ratio.user.username}" %></p>
 
 <p><%= button_to "delete", ratio_path(@ratio), method: :delete %></p>
+
+
+<!-- list songs in common -->

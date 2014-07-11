@@ -14,14 +14,18 @@ class RatiosController < ApplicationController
     @ratio = Ratio.new
   end
 
+  # def calculate
+  #
+  # end
+
   def create
     @ratio = Ratio.new(ratio_params)
+    @ratio.user = current_user
     if @ratio.save
       redirect_to ratios_path
     else
       render :new
     end
-    #API call?
   end
 
   def destroy
@@ -39,8 +43,8 @@ class RatiosController < ApplicationController
   private
   def ratio_params
     params.require(:ratio).permit(
-    :lastfm_username_entry,
-    :country_entry, :city_entry
+    :lastfm_username,
+    :country, :city
     )
   end
 

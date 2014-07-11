@@ -1,13 +1,22 @@
 <html>
-  <body>
-    <h2><%= @user.username %>'s page <h2>
-      <img src= '<%= @user.photo_url %>' >
-      <p>listening in: <%= @user.city.capitalize %>, <%= @user.country.capitalize %> </p>
-      <p>listening as: <%= @user.lastfm_username %> </p>
+<body>
+  <h2><%= @user.username %>'s page <h2>
+    <img src= '<%= @user.photo_url %>' >
+    <p>listening in: <%= @user.city.capitalize %>, <%= @user.country.capitalize %> </p>
+    <p>listening as: <%= @user.lastfm_username %> </p>
 
     <p><%= link_to 'edit me!', edit_user_path(@user)  %></p>
 
     <p><%= button_to "delete me?", user_path(@user), method: :delete %></p>
+    <p><%= link_to 'back to all', users_path %></p>
+    <hr>
 
-  </body>
+    <h4><%= @user.username %>'s most played tracks for the last week:</h4>
+      <ul>
+        <% Lastfm.user_list(@user.lastfm_username).each do |track| %>
+          <li><%= track[:title] %>, by <%= track[:artist] %></li>
+        <% end %>
+      </ul>
+      
+</body>
 </html>

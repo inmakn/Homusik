@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709150057) do
+ActiveRecord::Schema.define(version: 20140710203331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ratios", force: true do |t|
-    t.string   "lastfm_username_entry"
-    t.string   "country_entry"
-    t.string   "city_entry"
+    t.string   "lastfm_username"
+    t.string   "country"
+    t.string   "city"
     t.integer  "ratio_output"
     t.integer  "user_id"
     t.datetime "created_at"

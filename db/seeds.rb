@@ -11,6 +11,6 @@ ginko = User.create(username: 'Ginko', lastfm_username: 'urotomayori', photo_url
 
 
 fen.ratios.push(
-Ratio.create(lastfm_username_entry: 'noodle', city_entry: 'Seattle', country_entry: 'United States', ratio_output: 20),
-Ratio.create(lastfm_username_entry: 'noop noop', city_entry: 'Albany', country_entry: 'United States', ratio_output: 85)
+Ratio.create(lastfm_username: 'noodle', city: 'Seattle', country: 'United States', ratio_output: 20),
+Ratio.create(lastfm_username: 'noop noop', city: 'Albany', country: 'United States', ratio_output: 85)
 )
