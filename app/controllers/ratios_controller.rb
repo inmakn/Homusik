@@ -14,10 +14,6 @@ class RatiosController < ApplicationController
     @ratio = Ratio.new
   end
 
-  # def calculate
-  #
-  # end
-
   def create
     @ratio = Ratio.new(ratio_params)
     @ratio.user = current_user
@@ -42,10 +38,7 @@ class RatiosController < ApplicationController
 
   private
   def ratio_params
-    params.require(:ratio).permit(
-    :lastfm_username,
-    :country, :city
-    )
+    params.require(:ratio).permit(:lastfm_username, :country, :city)
   end
 
 end
