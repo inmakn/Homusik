@@ -56,10 +56,17 @@ class Lastfm
   end
 
   #calculate percent of user's tracklist shared with metro tracklist
-  def self.calculate_ratio(metro_array, user_array)
+  def self.get_common_tracks(metro_array, user_array)
     common_tracks = metro_array & user_array
-    ratio = common_tracks.length*100 / user_array.length.to_f
+  end
+
+  def self.calculate_ratio(common_track_array, user_array)
+    ratio = common_track_array.length*100 / user_array.length.to_f
     return ratio
+  end
+
+  def self.get_final_ratio(city, country, lastfm_username)
+    final_ratio = Lastfm.calculate_ratio(Lastfm.get_common_tracks(Lastfm.metro_list(city, country), Lastfm.user_list(lastfm_username)), Lastfm.user_list(lastfm_username))
   end
 
 

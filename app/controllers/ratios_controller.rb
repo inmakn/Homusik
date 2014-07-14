@@ -16,7 +16,7 @@ class RatiosController < ApplicationController
 
   def create
     @ratio = Ratio.create(ratio_params)
-    @ratio.ratio_output = Lastfm.calculate_ratio(Lastfm.metro_list(params[:city], params[:country]), Lastfm.user_list(params[:lastfm_username])).to_s
+    @ratio.ratio_output = Lastfm.get_final_ratio(params[:city], params[:country], params[:lastfm_username])
     @ratio.user = current_user
     if @ratio.save
       redirect_to ratios_path
@@ -24,17 +24,6 @@ class RatiosController < ApplicationController
       render :new
     end
   end
-
-
-  # def create
-  #   @ratio = Ratio.new(ratio_params)
-    # @ratio.user = current_user
-    # if @ratio.save
-    #   redirect_to ratios_path
-    # else
-    #   render :new
-    # end
-  # end
 
   def destroy
     @ratio = Ratio.find(params[:id])
