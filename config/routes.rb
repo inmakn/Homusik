@@ -2,8 +2,11 @@ Rails.application.routes.draw do
 
   get '/' => 'welcome#index', as: 'root'
 
-  #User Routes, Ratio Routes
-  resources :users, :ratios
+  #User Routes
+  resources :users
+
+  #Ratio Routes
+  resources :ratios
 
   #Sessions Routes
   get '/login' => 'sessions#new'

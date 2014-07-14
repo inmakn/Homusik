@@ -1,4 +1,4 @@
-<p><%= "#{@ratio.ratio_output}% sync ratio between last.fm user #{@ratio.lastfm_username} and #{@ratio.city}, #{@ratio.country} at #{@ratio.created_at}." %></p>
+<p><%= "#{@ratio.info}" %></p>
 <p><%= "searched by: #{@ratio.user.username}" %></p>
 
 <p><%= button_to "delete", ratio_path(@ratio), method: :delete %></p>

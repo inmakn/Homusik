@@ -4,6 +4,6 @@ class Ratio < ActiveRecord::Base
   validates_presence_of :lastfm_username, :city, :country, :user_id
 
   def info
-    "last.fm user #{lastfm_username} & #{city}, #{country} => #{ratio_output}% sync ratio"
+    "the sync ratio between last.fm user #{@ratio.lastfm_username} and #{@ratio.city}, #{@ratio.country} is #{@ratio.ratio_output}% (at #{@ratio.created_at})."
   end
 end

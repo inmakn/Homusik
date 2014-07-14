@@ -17,20 +17,25 @@ class Lastfm
   end
 
   #get metro's array of track/artist pairs by country, city
-  #defaults to an 8 week span, with 300 results in one page
-
+  #defaults to up to 500 results in one page
   def self.metro_list(city, country)
-    metro_week_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=geo.getmetroweeklychartlist&api_key=#{ENV["API_KEY"]}&format=json&metro=#{city}"))
-    metro_start_date = metro_week_call['weeklychartlist']['chart'][1]['from']
-    metro_end_date = metro_week_call['weeklychartlist']['chart'][8]['to']
-    limit = 300
     metro_array = []
-    metro_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=geo.getmetrohypetrackchart&country=#{country}&metro=#{city}&api_key=#{ENV["API_KEY"]}&format=json&from=#{metro_start_date}&to=#{metro_end_date}&limit=#{limit}"))
-    metro_call["toptracks"]["track"].each do |track_hash|
-      metro_array << {title: track_hash["name"], artist: track_hash["artist"]["name"]}
+    limit = 500
+    metro_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=geo.getmetrohypetrackchart&country=#{country}&metro=#{city}&api_key=#{ENV["API_KEY"]}&format=json&limit=#{limit}"))
+    if metro_call["toptracks"]
+      if metro_call["toptracks"].include?("track")
+      metro_call["toptracks"]["track"].each do |track_hash|
+        metro_array << {title: track_hash["name"], artist: track_hash["artist"]["name"]}
+      end
+      return metro_array
+      else
+      return metro_array
+      end
+    else
+      return metro_array
     end
-    return metro_array
   end
+
 
   #get user's array of track/artist pairs by username
   def self.user_list(username)
@@ -51,8 +56,11 @@ class Lastfm
   end
 
   #calculate percent of user's tracklist shared with metro tracklist
-  def calculate_ratio(metro_array, user_array)
-
+  def self.calculate_ratio(metro_array, user_array)
+    common_tracks = metro_array & user_array
+    ratio = common_tracks.length*100 / user_array.length.to_f
+    return ratio
   end
+
 
 end

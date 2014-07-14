@@ -12,11 +12,18 @@
     <hr>
 
     <h4><%= @user.username %>'s most played tracks for the last week:</h4>
-      <ul>
-        <% Lastfm.user_list(@user.lastfm_username).each do |track| %>
-          <li><%= track[:title] %>, by <%= track[:artist] %></li>
-        <% end %>
-      </ul>
+    <ul>
+      <% Lastfm.user_list(@user.lastfm_username).each do |track| %>
+      <li><%= track[:title] %>, by <%= track[:artist] %></li>
+      <% end %>
+    </ul>
 
-</body>
-</html>
+    <h4><%= @user.city %>'s most played tracks for the last week:</h4>
+    <ul>
+      <% Lastfm.metro_list(@user.city, @user.country).each do |track| %>
+      <li><%= track[:title] %>, by <%= track[:artist] %></li>
+      <% end %>
+    </ul>
+
+  </body>
+  </html>
