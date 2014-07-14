@@ -12,11 +12,13 @@ class RatiosController < ApplicationController
 
   def new
     @ratio = Ratio.new
+    @countries = Country.all
+    @cities = City.all
   end
 
   def create
     @ratio = Ratio.create(ratio_params)
-    @ratio.ratio_output = Lastfm.get_final_ratio(params[:city], params[:country], params[:lastfm_username])
+    @ratio.ratio_output = Lastfm.get_final_ratio(params[:ratio][:city], params[:ratio][:country], params[:ratio][:lastfm_username])
     @ratio.user = current_user
     if @ratio.save
       redirect_to ratios_path

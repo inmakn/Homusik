@@ -1,7 +1,9 @@
 <p><%= "#{@ratio.info}" %></p>
 <p><%= "searched by: #{@ratio.user.username}" %></p>
 
+<% if @ratio.user_id == session[:current_user] %>
 <p><%= button_to "delete", ratio_path(@ratio), method: :delete %></p>
+<% end %>
 
 
 <!-- list songs in common -->

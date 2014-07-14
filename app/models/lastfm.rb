@@ -16,21 +16,27 @@ class Lastfm
     end
   end
 
-  #get metro's array of track/artist pairs by country, city
+  #get metro's array of track/artist pairs by city, country.
+  #returns an empty array if track info is not available for that city
+  #return an array containing an error message if passed an invalid city/country pair
   #defaults to up to 500 results in one page
   def self.metro_list(city, country)
     metro_array = []
     limit = 500
-    metro_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=geo.getmetrohypetrackchart&country=#{country}&metro=#{city}&api_key=#{ENV["API_KEY"]}&format=json&limit=#{limit}"))
+    metro_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=geo.gettoptracks&country=#{country}&api_key=#{ENV["API_KEY"]}&format=json&location=#{city}&limit=#{limit}"))
     if metro_call["toptracks"]
       if metro_call["toptracks"].include?("track")
-      metro_call["toptracks"]["track"].each do |track_hash|
-        metro_array << {title: track_hash["name"], artist: track_hash["artist"]["name"]}
-      end
-      return metro_array
+        metro_call["toptracks"]["track"].each do |track_hash|
+          metro_array << {title: track_hash["name"], artist: track_hash["artist"]["name"]}
+        end
+        return metro_array
       else
-      return metro_array
+        return metro_array
       end
+    elsif metro_call["error"]
+      message_array = []
+      message_array << metro_call["message"]
+      return message_array
     else
       return metro_array
     end
@@ -38,33 +44,45 @@ class Lastfm
 
 
   #get user's array of track/artist pairs by username
+  #returns an empty array if track info is not available for that user
+  #defaults to up to 500 results in one page
   def self.user_list(username)
     user_array = []
-    user_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=user.getweeklytrackchart&user=#{username}&api_key=#{ENV["API_KEY"]}&format=json"))
-    if user_call["weeklytrackchart"]
-      if user_call["weeklytrackchart"].include?("track")
-      user_call["weeklytrackchart"]["track"].each do |track_hash|
-        user_array << {title: track_hash["name"], artist: track_hash["artist"]["#text"]}
-      end
-      return user_array
+    limit = 500
+    user_call = HTTParty.get(URI.escape("#{LASTFM_URL}?method=user.gettoptracks&user=#{username}&api_key=#{ENV["API_KEY"]}&format=json&limit=#{limit}"))
+    if user_call["toptracks"]
+      if user_call["toptracks"].include?("track")
+        user_call["toptracks"]["track"].each do |track_hash|
+          user_array << {title: track_hash["name"], artist: track_hash["artist"]["name"]}
+        end
+        return user_array
       else
-      return user_array
+        return user_array
       end
     else
       return user_array
     end
   end
 
-  #calculate percent of user's tracklist shared with metro tracklist
+  #create new array of tracks shared by user and metro tracklists
   def self.get_common_tracks(metro_array, user_array)
-    common_tracks = metro_array & user_array
+    if metro_array.include?("Metro is not part of the specified country.")
+      common_track_array = ["whoops, that city doesn't belong in that country!"]
+    else
+      common_track_array = metro_array & user_array
+    end
   end
 
+  #calculate percent of user's tracklist shared with metro tracklist
   def self.calculate_ratio(common_track_array, user_array)
-    ratio = common_track_array.length*100 / user_array.length.to_f
-    return ratio
+    if common_track_array.include?("whoops, that city doesn't belong in that country!")
+      ratio = ["invalid city/country combination"]
+    else
+      ratio = common_track_array.length*100 / user_array.length.to_f
+    end
   end
 
+  #method to get ratio from three initial attributes
   def self.get_final_ratio(city, country, lastfm_username)
     final_ratio = Lastfm.calculate_ratio(Lastfm.get_common_tracks(Lastfm.metro_list(city, country), Lastfm.user_list(lastfm_username)), Lastfm.user_list(lastfm_username))
   end

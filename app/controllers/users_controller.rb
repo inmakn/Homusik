@@ -12,12 +12,14 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @countries = Country.all
+    @cities = City.all
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to(user_path(@user))
+      redirect_to(login_path)
     else
       render :new
     end
@@ -25,6 +27,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @countries = Country.all
+    @cities = City.all
   end
 
   def update

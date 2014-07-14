@@ -10,5 +10,7 @@
   <br> </br>
   <%= link_to("~ who's listening to where ~", ratios_path) %>
   <br> </br>
+  <% if !current_user %>
   <%= link_to("sign up for homusik!", new_user_path) %>
+  <% end %>
 </html>

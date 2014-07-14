@@ -6,7 +6,9 @@
 <% @ratios.each do |ratio| %>
  <li><p><%= link_to(ratio.info, ratio_path(ratio)) %></p>
    <p><%= "searched by: #{ratio.user.username unless ratio.user.blank?}" %></p>
+   <% if ratio.user_id == session[:current_user] %>
    <p><%= button_to "delete", ratio_path(ratio), method: :delete %></p>
+   <% end %>
  </li>
 <% end %>
 </ul>

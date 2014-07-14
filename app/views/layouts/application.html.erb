@@ -11,7 +11,7 @@
 
   <% if current_user %>
   <h2>welcome to homusik, <%= current_user.username %> </h2>
-  <p><%= link_to "my homusik", user_path(current_user) %> | <%= link_to "log out", logout_path %></p>
+  <p><%= link_to "my homusik", user_path(current_user) %> | <%= link_to "log out", logout_path %> | <%= link_to "calculate a user/city sync ratio", new_ratio_path %></p>
   <hr>
 
   <% else %>
