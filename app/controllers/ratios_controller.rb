@@ -18,30 +18,35 @@ class RatiosController < ApplicationController
 
   def create
     @ratio = Ratio.create(ratio_params)
-    @ratio.ratio_output = Lastfm.get_final_ratio(params[:ratio][:city], params[:ratio][:country], params[:ratio][:lastfm_username])
-    @ratio.user = current_user
-    if @ratio.save
-      redirect_to ratios_path
-    else
-      render :new
-    end
-  end
-
-  def destroy
-    @ratio = Ratio.find(params[:id])
-    if current_user && @ratio.user_id == session[:current_user]
-      @ratio.destroy
-      redirect_to ratios_path
-    elsif current_user && @ratio.user_id != session[:current_user]
-      redirect_to wrong_user_path
-    else
+    ratio_return = Lastfm.get_final_ratio(params[:ratio][:city], params[:ratio][:country], params[:ratio][:lastfm_username])
+    if ratio_return.class == Array
       redirect_to error_path
+    else
+      @ratio.ratio_output = ratio_return
+      @ratio.user = current_user
+      if @ratio.save
+        redirect_to ratio_path(@ratio)
+      else
+        render :new
+      end
     end
   end
 
-  private
-  def ratio_params
-    params.require(:ratio).permit(:lastfm_username, :country, :city)
-  end
+    def destroy
+      @ratio = Ratio.find(params[:id])
+      if current_user && @ratio.user_id == session[:current_user]
+        @ratio.destroy
+        redirect_to ratios_path
+      elsif current_user && @ratio.user_id != session[:current_user]
+        redirect_to wrong_user_path
+      else
+        redirect_to error_path
+      end
+    end
 
-end
+    private
+    def ratio_params
+      params.require(:ratio).permit(:lastfm_username, :country, :city)
+    end
+
+  end

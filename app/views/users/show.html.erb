@@ -2,30 +2,27 @@
 <body>
   <h2><%= @user.username %>'s page <h2>
     <img src= '<%= @user.photo_url %>' >
-    <p>listening in: <%= @user.city.capitalize %>, <%= @user.country.capitalize %> </p>
+    <p>listening in: <%= @user.city.titleize %>, <%= @user.country.titleize %> </p>
     <p>listening as: <%= @user.lastfm_username %> </p>
 
-    <% if @user.id == session[:current_user] %>
-    <p><%= link_to 'edit me!', edit_user_path(@user)  %></p>
-    <p><%= button_to "delete me?", user_path(@user), method: :delete %></p>
-    <% end %>
 
-    <p><%= link_to 'back to all', users_path %></p>
-    <hr>
+    <h4><%= @user.username %>'s present sync ratio with <%= @user.city.titleize %>, <%= @user.country.titleize %>:
+      <%= Lastfm.get_final_ratio(@user.city, @user.country, @user.lastfm_username) %></h4>
 
-    <h4><%= @user.username %>'s most played tracks (overall):</h4>
+    <h4>shared tracks:</h4>
     <ul>
-      <% Lastfm.user_list(@user.lastfm_username).each do |track| %>
+      <% Lastfm.get_common_tracks(Lastfm.metro_list(@user.city, @user.country), Lastfm.user_list(@user.lastfm_username)).each do |track| %>
       <li><%= track[:title] %>, by <%= track[:artist] %></li>
       <% end %>
     </ul>
 
-    <h4><%= @user.city %>'s most played tracks for the last week:</h4>
-    <ul>
-      <% Lastfm.metro_list(@user.city, @user.country).each do |track| %>
-      <li><%= track[:title] %>, by <%= track[:artist] %></li>
+      <hr>
+      <% if @user.id == session[:current_user] %>
+      <p><%= link_to 'edit me!', edit_user_path(@user)  %></p>
+      <p><%= button_to "delete me?", user_path(@user), method: :delete %></p>
       <% end %>
-    </ul>
+      <hr>
+      <p><%= link_to 'back to all', users_path %></p>
 
-  </body>
-  </html>
+    </body>
+    </html>
