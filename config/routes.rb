@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   post '/sessions' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
   get '/error' => 'sessions#error'
-  get '/wrong_user' => 'sessions#wrong_user'
+  get '/geo_error' => 'sessions#geo_error'
 
 end
