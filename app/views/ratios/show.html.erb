@@ -1,9 +1,13 @@
 <p><%= "#{@ratio.info}" %></p>
 <p><%= "searched by: #{@ratio.user.username}" %></p>
 
+<h4>shared tracks:</h4>
+<ul>
+  <% Lastfm.get_common_tracks(Lastfm.metro_list(@ratio.city, @ratio.country), Lastfm.user_list(@ratio.lastfm_username)).each do |track| %>
+  <li><%= track[:title] %>, by <%= track[:artist] %></li>
+  <% end %>
+</ul>
+
 <% if @ratio.user_id == session[:current_user] %>
 <p><%= button_to "delete", ratio_path(@ratio), method: :delete %></p>
 <% end %>
-
-
-<!-- list songs in common -->

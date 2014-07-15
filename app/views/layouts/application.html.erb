@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+  <style>
+body {
+  text-align: center;
+  font-family: 'Poiret One', cursive;
+  color: rgb(255,0,0);
+  background-color: rgb(192,192,192);
+}
+h1 {
+  font-family: 'Poiret One', cursive;
+  color: rgb(255,0,0);
+  background-color: rgb(192,192,192);
+}
+ul{
+  font-family: 'Poiret One', cursive;
+  color: rgb(255,0,0);
+  list-style:none;
+  position:relative;
+  align-content: center;
+}
+
   <title>homusik</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  </style>
 </head>
 <body>
   <h4><%= link_to "homusik home", root_path %></h4>
