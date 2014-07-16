@@ -5,15 +5,12 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(username: params[:username])
-    if user
-      if user.authenticate(params[:password])
-        session[:current_user] = user.id
-        redirect_to user_path(current_user)
-      else
-        redirect_to login_path
-      end
+    if user && user.authenticate(params[:password])
+      session[:current_user] = user.id
+      redirect_to root_path
     else
-      redirect_to login_path
+      flash.now[:login_error] = "oops, that's not your username (or password)"
+      render :new
     end
   end
 

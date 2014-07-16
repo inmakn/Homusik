@@ -7,6 +7,7 @@
 
 
 <%= form_for @ratio do |f| %>
+<p> <%= flash[:geo_error] %> </p>
 
 <%= f.label :lastfm_username %>
 <%= f.text_field :lastfm_username %>

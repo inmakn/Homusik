@@ -3,6 +3,7 @@
 
 
 <%= form_tag sessions_path do %>
+<p><%= flash[:login_error] %></p>
 
 <%= label_tag :username %>
 <%= text_field_tag :username %>

@@ -17,5 +17,4 @@ describe Ratio do
     expect(info).to include("usa")
   end
 
-
 end

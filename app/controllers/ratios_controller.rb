@@ -17,10 +17,11 @@ class RatiosController < ApplicationController
   end
 
   def create
-    @ratio = Ratio.create(ratio_params)
+    @ratio = Ratio.new(ratio_params)
     ratio_return = Lastfm.get_final_ratio(params[:ratio][:city], params[:ratio][:country], params[:ratio][:lastfm_username])
     if ratio_return.class == Array
-      redirect_to geo_error_path
+      flash.now[:geo_error] = "oops! you didn't enter a valid city/country pair"
+      render :new
     else
       @ratio.ratio_output = ratio_return
       @ratio.user = current_user
