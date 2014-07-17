@@ -9,4 +9,4 @@ User Stories:
 https://trello.com/b/BVraLExT/fen-inman-homusik
 
 Heroku URL:
-http://desolate-basin-2267.herokuapp.com/
+http://homusik.herokuapp.com/
